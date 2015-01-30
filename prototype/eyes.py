@@ -18,12 +18,15 @@ class TestEyes(AnnouncerEyes):
 	def open(self):
 		for file in os.listdir(self.frame_folder):
 			self.files.append(self.frame_folder + file)
-	
+		self.files = sorted(self.files, key = lambda s: int(s.split("/")[-1].split(".")[0]))
+
 	def see(self):
-		frame_file = open(self.files[self.stream_index])
-		frame = frame_file.read()
-		frame_file.close()
-		
-		print self.stream_index
-		self.stream_index += 1
-		return frame
+		try:
+			frame_file = open(self.files[self.stream_index])
+			frame = frame_file.read()
+			frame_file.close()
+			
+			self.stream_index += 1
+			return frame
+		except IndexError as e:
+			return None
