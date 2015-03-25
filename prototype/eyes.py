@@ -1,5 +1,6 @@
 from announcer import AnnouncerEyes
 import os
+import cv2, numpy as np
 
 class ClosedEyes(AnnouncerEyes):
 	def open(self):
@@ -18,15 +19,13 @@ class TestEyes(AnnouncerEyes):
 	def open(self):
 		for file in os.listdir(self.frame_folder):
 			self.files.append(self.frame_folder + file)
-		self.files = sorted(self.files, key = lambda s: int(s.split("/")[-1].split(".")[0]))
+		self.files = sorted(self.files, key = lambda s: int(s.split("/")[-1].split(".")[0].split("-")[0]))
 
 	def see(self):
 		try:
-			frame_file = open(self.files[self.stream_index])
-			frame = frame_file.read()
-			frame_file.close()
-			
+			frame = cv2.imread(self.files[self.stream_index], 0)
 			self.stream_index += 1
+			
 			return frame
 		except IndexError as e:
-			return None
+			exit()

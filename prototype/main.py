@@ -3,11 +3,12 @@ from eyes import *
 from brains import *
 from mouths import *
 
+import sys
+
 if __name__ == "__main__":
-	print "Hello Kevin!"
-	eyes = TestEyes("../videos/lol_example1/")
-	brain = RandomBrain()
-	mouth = ClosedMouth()
+	eyes = TestEyes(sys.argv[1])
+	brain = TestBrain()
+	mouth = PrintingMouth()
 	
 	announcer = Announcer(eyes, brain, mouth)
 	announcer.begin()

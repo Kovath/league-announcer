@@ -1,7 +1,8 @@
 # VIDEO FRAME CAPPER
 # by Kevin Yang
 #
-# A quickly made tool to grab intervals of frames of a video and save to disk
+# A quickly made tool to grab intervals of frames of a video and save to disk in 
+# the format <output_index>-<frame_index>
 # python video_capper <filename> <frame interval>
 
 import cv2, os, sys, string
@@ -41,6 +42,7 @@ if __name__ == "__main__":
 	print("")
 
 	# EXECUTE THE CAPPING
+	output_index = 0
 	frame_index = 0
 	print("PROGRESS")
 	print("--------")
@@ -52,8 +54,8 @@ if __name__ == "__main__":
 		if frame[0] != 1:
 			break
 		if (frame_index % interval) == 0:
-			pass
-			cv2.imwrite(out_dir + str(frame_index) + '.jpg', frame[1])
+			cv2.imwrite(out_dir + str(output_index) + "-" + str(frame_index) + '.jpg', frame[1])
+			output_index += 1
 		frame_index += 1
 	video.release()
 
